@@ -1,8 +1,12 @@
 package br.com.analise.compras;
 
 import br.com.analise.compras.Entity.Categoria;
+import br.com.analise.compras.Entity.Cidade;
+import br.com.analise.compras.Entity.Estado;
 import br.com.analise.compras.Entity.Produto;
 import br.com.analise.compras.repository.CategoriaRepository;
+import br.com.analise.compras.repository.CidadeRepository;
+import br.com.analise.compras.repository.EstadoRepository;
 import br.com.analise.compras.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,7 +25,13 @@ public class ComprasApplication implements CommandLineRunner {
 	private CategoriaRepository categoriaRepository;
 
 	@Autowired
-	private ProdutoRepository produtoRepository;
+    private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private EstadoRepository estadoRepository;
+
+    @Autowired
+    private CidadeRepository cidadeRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ComprasApplication.class, args);
@@ -45,5 +55,22 @@ public class ComprasApplication implements CommandLineRunner {
 
 		categoriaRepository.save(Arrays.asList(cat1, cat2));
 		produtoRepository.save(Arrays.asList(p1, p2, p3));
+
+		Estado est1 = new Estado(null, "Minas Gerais");
+		Estado est2 = new Estado(null, "São Paulo");
+
+		Cidade c1 = new Cidade(null, "Uberlândia", est1);
+		Cidade c2 = new Cidade(null, "São Paulo", est2);
+		Cidade c3 = new Cidade(null, "Campinas", est2);
+
+		est1.getCidades().addAll(Arrays.asList(c1));
+        est2.getCidades().addAll(Arrays.asList(c2, c3));
+
+        c1.setEstado(est1);
+        c2.setEstado(est2);
+        c3.setEstado(est2);
+
+        estadoRepository.save(Arrays.asList(est1, est2));
+        cidadeRepository.save(Arrays.asList(c1, c2, c3));
 	}
 }
