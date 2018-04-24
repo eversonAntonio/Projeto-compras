@@ -7,16 +7,16 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "TB_ESTADO")
+@Table(name = "tb_estado")
 @SequenceGenerator(name = "seq_estado", sequenceName = "seq_estado")
 public class Estado implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_estado")
-    @Column(name = "ES_ID")
+    @Column(name = "es_id")
     private Integer id;
 
-    @Column(name = "ES_NOME")
+    @Column(name = "es_nome")
     private String nome;
 
     //estado é a variável criada na classe Cidade
