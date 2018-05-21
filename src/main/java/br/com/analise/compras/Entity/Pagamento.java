@@ -1,24 +1,30 @@
 package br.com.analise.compras.Entity;
 
 import br.com.analise.compras.Entity.enumeration.EstadoPagamentoEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "tb_pagamento")
+@Inheritance(strategy = InheritanceType.JOINED)
 @SequenceGenerator(name = "seq_pagamento", sequenceName = "seq_pagamento")
 public class Pagamento implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_pagamento")
     @Column(name = "pa_id")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_pagamento")
     private Integer id;
 
     @Column(name = "pa_estado")
+    @Enumerated(EnumType.STRING)
     private EstadoPagamentoEnum estado;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pe_id")
     @MapsId

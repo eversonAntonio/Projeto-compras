@@ -6,16 +6,16 @@ public class StandardError implements Serializable{
 
     private Integer status;
     private String msg;
-    private Long timeStamp;
+    private Long timestamp;
 
-    public StandardError(){
+    public StandardError() {
 
     }
 
-    public StandardError(Integer status, String msg, Long timeStamp) {
+    public StandardError(Integer status, String msg, Long timestamp) {
         this.status = status;
         this.msg = msg;
-        this.timeStamp = timeStamp;
+        this.timestamp = timestamp;
     }
 
     public Integer getStatus() {
@@ -34,11 +34,11 @@ public class StandardError implements Serializable{
         this.msg = msg;
     }
 
-    public Long getTimeStamp() {
-        return timeStamp;
+    public Long getTimestamp() {
+        return timestamp;
     }
 
-    public void setTimeStamp(Long timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
     }
 }

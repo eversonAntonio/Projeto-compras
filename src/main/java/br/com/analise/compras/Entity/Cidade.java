@@ -10,8 +10,8 @@ import java.util.Objects;
 public class Cidade implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_cidade")
     @Column(name = "ci_id")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_cidade")
     private Integer id;
 
     @Column(name = "ci_nome")
@@ -21,7 +21,7 @@ public class Cidade implements Serializable {
     @JoinColumn(name = "es_id")
     private Estado estado;
 
-    public Cidade(){
+    public Cidade() {
 
     }
 

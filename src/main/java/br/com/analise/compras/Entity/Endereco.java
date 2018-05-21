@@ -1,5 +1,7 @@
 package br.com.analise.compras.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,8 +12,8 @@ import java.util.Objects;
 public class Endereco implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_endereco")
     @Column(name = "en_id")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_endereco")
     private Integer id;
 
     @Column(name = "en_logradouro")
@@ -33,6 +35,7 @@ public class Endereco implements Serializable {
     @JoinColumn(name = "ci_id")
     private Cidade cidade;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cl_id")
     private Cliente cliente;

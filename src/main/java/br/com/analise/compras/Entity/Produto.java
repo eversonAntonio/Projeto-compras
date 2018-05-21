@@ -1,12 +1,11 @@
 package br.com.analise.compras.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_produto")
@@ -24,13 +23,18 @@ public class Produto implements Serializable {
     @Column(name = "pr_preco")
     private Double preco;
 
-    //Associações
-    @JsonBackReference
+    //joinColumns: chave estrangeira de produto
+    //inverseJoinColumns: chave estrangeira categoria
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "tb_produto_categoria",
-        joinColumns = @JoinColumn(name = "pr_id"),
-        inverseJoinColumns = @JoinColumn(name = "ca_id"))
+            joinColumns = @JoinColumn(name = "pr_id"),
+            inverseJoinColumns = @JoinColumn(name = "ca_id"))
     private List<Categoria> categorias = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "id.produto")
+    private Set<ItemPedido> itens = new HashSet<>();
 
     public Produto() {
     }
@@ -39,6 +43,15 @@ public class Produto implements Serializable {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
+    }
+
+    @JsonIgnore
+    public List<Pedido> getPedidos() {
+        List<Pedido> lista = new ArrayList<>();
+        for (ItemPedido x : itens) {
+            lista.add(x.getPedido());
+        }
+        return lista;
     }
 
     public Integer getId() {
@@ -71,6 +84,14 @@ public class Produto implements Serializable {
 
     public void setCategorias(List<Categoria> categorias) {
         this.categorias = categorias;
+    }
+
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
     }
 
     @Override

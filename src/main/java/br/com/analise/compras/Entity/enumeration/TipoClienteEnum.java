@@ -7,11 +7,11 @@ public enum TipoClienteEnum {
 
     String descricao;
 
-    public String getDescricao() {
-        return descricao;
-    }
-
     TipoClienteEnum(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getDescricao() {
+        return descricao;
     }
 }

@@ -1,5 +1,7 @@
 package br.com.analise.compras.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,14 +14,14 @@ import java.util.Objects;
 public class Estado implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_estado")
     @Column(name = "es_id")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_estado")
     private Integer id;
 
     @Column(name = "es_nome")
     private String nome;
 
-    //estado é a variável criada na classe Cidade
+    @JsonIgnore
     @OneToMany(mappedBy = "estado")
     private List<Cidade> cidades = new ArrayList<>();
 
